@@ -1,0 +1,16 @@
+{
+  "Nickname": "SynSpellTomeNameExtender",
+  "Visibility": "Visible",
+  "OneLineDescription": "Adds a few characters to the Spell Tome names, to identify the Type and level of a spell",
+  "LongDescription": "",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": [],
+  "TargetedReleases": [
+    "SkyrimLE",
+    "SkyrimSE",
+    "SkyrimVR",
+    "EnderalLE",
+    "EnderalSE",
+    "SkyrimSEGog"
+  ]
+}
