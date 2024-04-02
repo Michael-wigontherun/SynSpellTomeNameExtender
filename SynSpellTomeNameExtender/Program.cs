@@ -17,17 +17,25 @@ namespace SynSpellTomeNameExtender
         public static IPatcherState<ISkyrimMod, ISkyrimModGetter> State;
         public static Dictionary<FormKey, string> dict = new Dictionary<FormKey, string>();
 
+        public static HashSet<string> IgnoredPlugins = new()
+        {
+            "EldenSkyrim_RimSkills.esp",
+            "EldenSkyrim.esp",
+            "EldenPerkTree.esp"
+        };
+
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
             SpellTypeDictory();
-
+            
             foreach (var book in state.LoadOrder.PriorityOrder.Book().WinningOverrides())
             {
                 switch (book.Teaches)
                 {
                     case IBookSpellGetter teachesSpell:
-                        //Book updatedBook = book.DeepCopy();
+                        if (IgnoredPlugins.Contains(teachesSpell.Spell.FormKey.ModKey.ToString(), StringComparer.OrdinalIgnoreCase)) continue;
+
                         Book updatedBook = state.PatchMod.Books.GetOrAddAsOverride(book);
                         updatedBook.Name = UpdateName(teachesSpell, updatedBook.Name);
                         //state.PatchMod.Books.GetOrAddAsOverride(updatedBook);
